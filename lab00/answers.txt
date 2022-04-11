@@ -1,4 +1,4 @@
-1.
-2.
-3.
-4.
+1.get-location
+2.get-process
+3.stop-process
+4.compare-object
