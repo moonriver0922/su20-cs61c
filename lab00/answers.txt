@@ -1,8 +1,9 @@
-1.move-item
-2.set-acl
-3.pwd
-4.ping
-5.find
-6.get-process
-7.stop-process
-8.compare-object
+1.get-acl
+2.move-item
+3.set-acl
+4.pwd
+5.ping
+6.find
+7.get-process
+8.stop-process
+9.compare-object
