@@ -1,4 +1,8 @@
-1.get-location
-2.get-process
-3.stop-process
-4.compare-object
+1.move-item
+2.set-acl
+3.pwd
+4.ping
+5.find
+6.get-process
+7.stop-process
+8.compare-object
