@@ -1,12 +1,16 @@
 #include <stdio.h>
 
 /* Only change any of these 4 values */
-#define V0 0
-#define V1 -1
-#define V2 0
-#define V3 0
+#define V0 3
+#define V1 3
+#define V2 3
+#define V3 3
 
 int main(void) {
+    int m, n, sum;
+    scanf("%d,%d",&m,&n);
+    sum = m + n;
+    printf("%d+%d=%d\n", m, n, sum);
     int a;
     char *s;
 
