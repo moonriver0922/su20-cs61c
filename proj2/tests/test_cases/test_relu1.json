@@ -1,0 +1,8 @@
+{
+    "name": "Basic Relu Test",
+    "id": "relu1",
+    "test_file": "test_relu1.s",
+    "args": ["-it", "-ms", "-1"],
+    "stdout": "1 \n\n1 \n",
+    "exitcode": 0
+}
