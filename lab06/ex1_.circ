@@ -265,10 +265,8 @@ end TCL_Generic;
     <comp lib="0" loc="(170,210)" name="Pin">
       <a name="label" val="CLK"/>
     </comp>
-    <comp lib="8" loc="(200,333)" name="Text"/>
-    <comp lib="8" loc="(294,435)" name="Text"/>
-    <comp lib="8" loc="(314,276)" name="Text">
-      <a name="text" val="critical path: 125ns"/>
+    <comp lib="8" loc="(336,302)" name="Text">
+      <a name="text" val="Critical path: 105ns"/>
       <a name="font" val="SansSerif plain 12"/>
     </comp>
   </circuit>
@@ -279,29 +277,23 @@ end TCL_Generic;
     <a name="clabelfont" val="SansSerif bold 16"/>
     <a name="circuitnamedbox" val="true"/>
     <a name="circuitvhdlpath" val=""/>
-    <wire from="(470,130)" to="(470,260)"/>
-    <wire from="(650,120)" to="(650,260)"/>
-    <wire from="(350,210)" to="(530,210)"/>
-    <wire from="(470,260)" to="(650,260)"/>
-    <wire from="(210,110)" to="(260,110)"/>
-    <wire from="(210,130)" to="(260,130)"/>
-    <wire from="(470,110)" to="(470,120)"/>
-    <wire from="(170,210)" to="(350,210)"/>
-    <wire from="(210,90)" to="(210,110)"/>
-    <wire from="(210,130)" to="(210,150)"/>
-    <wire from="(170,90)" to="(210,90)"/>
-    <wire from="(170,150)" to="(210,150)"/>
-    <wire from="(430,120)" to="(470,120)"/>
-    <wire from="(350,160)" to="(370,160)"/>
-    <wire from="(530,120)" to="(560,120)"/>
-    <wire from="(530,160)" to="(560,160)"/>
-    <wire from="(470,130)" to="(490,130)"/>
-    <wire from="(620,120)" to="(650,120)"/>
-    <wire from="(470,110)" to="(490,110)"/>
-    <wire from="(350,160)" to="(350,210)"/>
-    <wire from="(530,160)" to="(530,210)"/>
-    <wire from="(300,120)" to="(370,120)"/>
-    <wire from="(650,120)" to="(660,120)"/>
+    <wire from="(430,120)" to="(430,220)"/>
+    <wire from="(110,270)" to="(140,270)"/>
+    <wire from="(500,110)" to="(560,110)"/>
+    <wire from="(670,110)" to="(670,220)"/>
+    <wire from="(430,120)" to="(460,120)"/>
+    <wire from="(670,110)" to="(690,110)"/>
+    <wire from="(620,110)" to="(670,110)"/>
+    <wire from="(310,140)" to="(330,140)"/>
+    <wire from="(190,110)" to="(190,150)"/>
+    <wire from="(280,100)" to="(330,100)"/>
+    <wire from="(190,110)" to="(240,110)"/>
+    <wire from="(170,150)" to="(190,150)"/>
+    <wire from="(330,140)" to="(340,140)"/>
+    <wire from="(430,220)" to="(670,220)"/>
+    <wire from="(170,90)" to="(240,90)"/>
+    <wire from="(390,100)" to="(460,100)"/>
+    <wire from="(520,150)" to="(560,150)"/>
     <comp lib="0" loc="(170,90)" name="Pin">
       <a name="width" val="8"/>
       <a name="label" val="in1"/>
@@ -310,22 +302,33 @@ end TCL_Generic;
       <a name="width" val="8"/>
       <a name="label" val="in2"/>
     </comp>
-    <comp lib="0" loc="(170,210)" name="Pin">
+    <comp lib="0" loc="(110,270)" name="Pin">
       <a name="label" val="CLK"/>
     </comp>
-    <comp lib="3" loc="(300,120)" name="Multiplier"/>
-    <comp lib="0" loc="(660,120)" name="Pin">
+    <comp lib="0" loc="(140,270)" name="Tunnel">
+      <a name="label" val="clk"/>
+    </comp>
+    <comp lib="3" loc="(280,100)" name="Multiplier"/>
+    <comp lib="4" loc="(330,70)" name="Register"/>
+    <comp lib="0" loc="(310,140)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="clk"/>
+    </comp>
+    <comp lib="4" loc="(560,80)" name="Register"/>
+    <comp lib="3" loc="(500,110)" name="Adder"/>
+    <comp lib="0" loc="(690,110)" name="Pin">
       <a name="facing" val="west"/>
       <a name="output" val="true"/>
       <a name="width" val="8"/>
       <a name="label" val="out1"/>
       <a name="labelloc" val="east"/>
     </comp>
-    <comp lib="3" loc="(530,120)" name="Adder"/>
-    <comp lib="4" loc="(560,90)" name="Register"/>
-    <comp lib="4" loc="(370,90)" name="Register"/>
-    <comp lib="8" loc="(367,284)" name="Text">
-      <a name="text" val="maximum clock rate: 12.5MHz"/>
+    <comp lib="0" loc="(520,150)" name="Tunnel">
+      <a name="facing" val="east"/>
+      <a name="label" val="clk"/>
+    </comp>
+    <comp lib="8" loc="(287,306)" name="Text">
+      <a name="text" val="clock rate: 14.29MHz"/>
       <a name="font" val="SansSerif plain 12"/>
     </comp>
   </circuit>
