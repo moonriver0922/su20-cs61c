@@ -1,36 +1,36 @@
 Exercise 1
 	Scenario 1
-		1. 
-		2.
-		3.
+		1. because stepsize = 8(multiple by 4 will be 32 bytes) exactly equals to cache size in 32 bytes
+		2. 0%	because cache size always equals to stepsize
+		3. change stepsize to 4
 
 	Scenario 2
-		1.
-		2.
-		3.
-		4.
-		5.
+		1. 64
+		2. miss hit hit hit
+		3. because we have 16 bytes blocks, and our stepsize is 2(8 bytes) so we only have a miss hit at beginning(compulsory) in a pattern
+		4. 100% the second loop will 100% hit rate and our array size equals to cache size
+		5. increase associative ways so that we can decrease miss hit just like miss hit hit hit hit hit hit hit pattern
 
 	Scenario 3
-		1.
-		2.
-		3.
-		4.
-		5.
+		1. 50% 0% 50%
+		2. 32	16
+		3. 16	L1 hit miss so that we access L2
+		4. L2 block size
+		5. nothing changes	nothing changes
 
 Exercise 2
-	ijk:
-	ikj:
-	jik:
-	jki:
-	kij:
-	kji:
+	ijk:    n = 1000, 2.764 Gflop/s
+	ikj:    n = 1000, 1.828 Gflop/s
+	jik:    n = 1000, 2.677 Gflop/s
+	jki:    n = 1000, 10.665 Gflop/s
+	kij:    n = 1000, 1.922 Gflop/s
+	kji:    n = 1000, 10.524 Gflop/s
 
-	1.
-	2.
-	3.
+	1.	jki	we make full use of spatial locality
+	2.	ikj we make least use of spatial locality
+	3.	we should stride as small size as we can
 
-Exercise 3
+Exercise 3 (because my os is windows, so i can not implement the function lrand48() that i fail to do this(i just use drand48() to take place lrand48()))
 	Part 1
 		blocksize = 20, n = 100: 
 		blocksize = 20, n = 1000: 

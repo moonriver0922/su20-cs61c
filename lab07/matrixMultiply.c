@@ -3,6 +3,31 @@
 #include <sys/time.h>
 #include <time.h>
 
+#ifndef DRAND48_H
+#define DRAND48_H
+
+
+#define m 0x100000000LL
+#define c 0xB16
+#define a 0x5DEECE66DLL
+
+static unsigned long long seed = 1;
+
+double drand48(void)
+{
+	seed = (a * seed + c) & 0xFFFFFFFFFFFFLL;
+	unsigned int x = seed >> 16;
+    return 	((double)x / (double)m);
+	
+}
+
+void srand48(unsigned int i)
+{
+    seed  = (((long long int)i) << 16) | rand();
+}
+
+#endif
+
 
 /* To save you time, we are including all 6 variants of the loop ordering
    as separate functions and then calling them using function pointers.

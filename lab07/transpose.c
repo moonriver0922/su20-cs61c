@@ -3,6 +3,31 @@
 #include <sys/time.h>
 #include <time.h>
 
+#ifndef DRAND48_H
+#define DRAND48_H
+
+
+#define m 0x100000000LL
+#define c 0xB16
+#define a 0x5DEECE66DLL
+
+static unsigned long long seed = 1;
+
+double drand48(void)
+{
+	seed = (a * seed + c) & 0xFFFFFFFFFFFFLL;
+	unsigned int x = seed >> 16;
+    return 	((double)x / (double)m);
+	
+}
+
+void srand48(unsigned int i)
+{
+    seed  = (((long long int)i) << 16) | rand();
+}
+
+#endif
+
 /* The naive transpose function as a reference. */
 void transpose_naive(int n, int blocksize, int *dst, int *src) {
     for (int x = 0; x < n; x++) {
@@ -16,6 +41,55 @@ void transpose_naive(int n, int blocksize, int *dst, int *src) {
  * multiple of the block size. */
 void transpose_blocking(int n, int blocksize, int *dst, int *src) {
     // YOUR CODE HERE
+    /*int stepsize;
+    stepsize = blocksize / 4;
+    for (int x = 0; x < n; x++) {
+        if (stepsize < n)
+        {
+            for (int y = 0; y < n / stepsize; y++) {
+                for (int z = 0; z < stepsize; z++)
+                {
+                    dst[x + (y * stepsize + z) * n] = src[x * n + y * stepsize + z];
+                }
+            }
+            
+            for (int y = stepsize * n / stepsize; y < n; y++)
+            {
+                dst[x + y * n] = src[y + x * n];
+            }
+        }
+        else 
+        {
+            for (int y = 0; y < n; y++) {
+                dst[x + y * n] = src[x * n + y];
+            }
+        }
+    }*/
+    for (int yBase = 0; yBase < n; yBase += blocksize)
+    {
+        int yBound = yBase + blocksize;
+        if (yBound >= n)
+        {
+            yBound = n;
+        }
+        for (int xBase = 0; xBase < n; xBase += blocksize)
+        {
+            int xBound = xBase + blocksize;
+            if (xBound >= n)
+            {
+                xBound = n;
+            }
+            for (int y = yBase; y < yBound; y++)
+            {
+                for (int x = xBase; x < xBound; x++)
+                {
+                    dst[y + x * n] = src[x + y * n];
+                }
+                
+            }
+            
+        }          
+    }
 }
 
 void benchmark(int *A, int *B, int n, int blocksize,
@@ -26,8 +100,8 @@ void benchmark(int *A, int *B, int n, int blocksize,
 
     /* initialize A,B to random integers */
     srand48( time( NULL ) );
-    for( i = 0; i < n*n; i++ ) A[i] = lrand48( );
-    for( i = 0; i < n*n; i++ ) B[i] = lrand48( );
+    for( i = 0; i < n*n; i++ ) A[i] = drand48();
+    for( i = 0; i < n*n; i++ ) B[i] = drand48();
 
     /* measure performance */
     struct timeval start, end;
