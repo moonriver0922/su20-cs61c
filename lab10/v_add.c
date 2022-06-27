@@ -1,3 +1,29 @@
+#ifndef DRAND48_H
+#define DRAND48_H
+
+#include <stdlib.h>
+
+#define m 0x100000000LL
+#define c 0xB16
+#define a 0x5DEECE66DLL
+
+static unsigned long long seed = 1;
+
+double drand48(void)
+{
+	seed = (a * seed + c) & 0xFFFFFFFFFFFFLL;
+	unsigned int x = seed >> 16;
+    return 	((double)x / (double)m);
+	
+}
+
+void srand48(unsigned int i)
+{
+    seed  = (((long long int)i) << 16) | rand();
+}
+
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
@@ -16,19 +42,38 @@ void v_add_naive(double* x, double* y, double* z) {
 
 // Edit this function (Method 1) 
 void v_add_optimized_adjacent(double* x, double* y, double* z) {
-     #pragma omp parallel
+	#pragma omp parallel
 	{
-		for(int i=0; i<ARRAY_SIZE; i++)
-			z[i] = x[i] + y[i];
+		int thread_sum = omp_get_num_threads();
+		int thread_num = omp_get_thread_num();
+		//printf("tid: %d\n", omp_get_thread_num());
+		for(int i = thread_num; i<ARRAY_SIZE; i += thread_sum) {
+				z[i] = x[i] + y[i];
+		}
 	}
 }
 
 // Edit this function (Method 2) 
 void v_add_optimized_chunks(double* x, double* y, double* z) {
-          #pragma omp parallel
-	{
-		for(int i=0; i<ARRAY_SIZE; i++)
-			z[i] = x[i] + y[i];
+    #pragma omp parallel
+	{	
+		int thread_sum = omp_get_num_threads();
+		int thread_num = omp_get_thread_num();
+		int blocksize = ARRAY_SIZE / thread_sum;
+		int start = thread_num * blocksize;
+		int end = start + blocksize;
+		//printf("tid: %d\n", omp_get_thread_num());
+		for(int i = start; i < end; i++) {
+				z[i] = x[i] + y[i];
+				
+		}
+		for (int i = thread_num; i < ARRAY_SIZE - blocksize * thread_sum; i += thread_sum)
+		{
+			
+			z[i + blocksize * thread_sum] = x[i + blocksize * thread_sum] + y[i + blocksize * thread_sum];
+			//printf("tid: %d\n", omp_get_thread_num());
+		}
+		
 	}
 }
 
@@ -62,7 +107,7 @@ int main() {
 	// Test framework that sweeps the number of threads and times each run
 	double start_time, run_time;
 	int num_threads = omp_get_max_threads();	
-
+	//int num_threads = 1;
 
 	for(int i=1; i<=num_threads; i++) {
 		omp_set_num_threads(i);		

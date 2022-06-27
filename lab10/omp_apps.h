@@ -2,6 +2,8 @@
 #ifndef COMPUTE_DOTP_H
 #define COMPUTE_DOTP_H
 
+
+
 #include <math.h>
 #include <omp.h>
 #include <stdio.h>

@@ -1,3 +1,28 @@
+#ifndef DRAND48_H
+#define DRAND48_H
+
+#include <stdlib.h>
+
+#define m 0x100000000LL
+#define b 0xB16
+#define a 0x5DEECE66DLL
+
+static unsigned long long seed = 1;
+
+double drand48(void)
+{
+	seed = (a * seed + b) & 0xFFFFFFFFFFFFLL;
+	unsigned int x = seed >> 16;
+    return 	((double)x / (double)m);
+	
+}
+
+void srand48(unsigned int i)
+{
+    seed  = (((long long int)i) << 16) | rand();
+}
+
+#endif
 #include "omp_apps.h"
 
 /* -------------------------------Dot Product------------------------------*/
@@ -24,10 +49,22 @@ double dotp_manual_optimized(double* x, double* y, int arr_size) {
   double global_sum = 0.0;
 #pragma omp parallel
   {
-#pragma omp for
-    for (int i = 0; i < arr_size; i++)
-#pragma omp critical
-      global_sum += x[i] * y[i];
+    int tSum = omp_get_num_threads();
+    int tId = omp_get_thread_num();
+    int blocksize = arr_size / tSum;
+    int start = tId * blocksize;
+    int end = start + blocksize;
+    double thread_sum[tSum];
+    for (int i = start; i < end; i++) {
+      thread_sum[tId] += x[i] * y[i];
+    }
+    if (tId == tSum - 1 && end < arr_size) {  
+      for (int i = end; i < arr_size; i++)
+        thread_sum[tId] += x[i] * y[i];
+    }
+      
+    #pragma omp critical
+        global_sum += thread_sum[tId];
   }
   return global_sum;
 }
@@ -37,9 +74,8 @@ double dotp_reduction_optimized(double* x, double* y, int arr_size) {
   double global_sum = 0.0;
 #pragma omp parallel
   {
-#pragma omp for
+#pragma omp for reduction(+:global_sum)
     for (int i = 0; i < arr_size; i++)
-#pragma omp critical
       global_sum += x[i] * y[i];
   }
   return global_sum;
